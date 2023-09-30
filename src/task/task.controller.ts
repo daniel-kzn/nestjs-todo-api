@@ -7,6 +7,8 @@ import {
   Post,
   Query,
   Put,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskService } from './task.service';
@@ -20,8 +22,8 @@ export class TaskController {
 
   @Get()
   async getTasks(@Query() queryTasks: QueryTasksDTO): Promise<Task[]> {
-    console.log('eyy');
     if (Object.keys(queryTasks).length) {
+      console.log(queryTasks);
       return this.tasksService.findTasksWithQuery(queryTasks);
     } else return this.tasksService.findAllTasks();
   }
@@ -32,6 +34,7 @@ export class TaskController {
   }
 
   @Post()
+  @UsePipes(ValidationPipe)
   async createTask(@Body() dto: CreateTaskDTO): Promise<Task> {
     return this.tasksService.createTask(dto);
   }
@@ -43,7 +46,6 @@ export class TaskController {
 
   @Delete('/:id')
   async deleteTask(@Param('id') id: string): Promise<void> {
-    console.log(id);
     this.tasksService.deleteTask(id);
   }
 }
