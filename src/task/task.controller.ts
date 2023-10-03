@@ -15,6 +15,7 @@ import { TaskService } from './task.service';
 import { Task } from './model/task.model';
 import { UpdateTaskDTO } from './dto/update-task.dto';
 import { QueryTasksDTO } from './dto/query-tasks.dto';
+import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 
 @Controller('task')
 export class TaskController {
@@ -40,12 +41,15 @@ export class TaskController {
   }
 
   @Put('/:id')
-  async uptadeTask(@Param('id') id: string, @Body() dto: UpdateTaskDTO) {
+  async uptadeTask(
+    @Param('id') id: string,
+    @Body('data', TaskStatusValidationPipe) dto: UpdateTaskDTO,
+  ) {
     return this.uptadeTask(id, dto);
   }
 
   @Delete('/:id')
-  async deleteTask(@Param('id') id: string): Promise<void> {
+  async deleteTask(@Param('id') id: string): Promise<undefined> {
     this.tasksService.deleteTask(id);
   }
 }
