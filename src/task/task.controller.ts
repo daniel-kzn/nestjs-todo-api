@@ -22,7 +22,9 @@ export class TaskController {
   constructor(private tasksService: TaskService) {}
 
   @Get()
-  async getTasks(@Query() queryTasks: QueryTasksDTO): Promise<Task[]> {
+  async getTasks(
+    @Query(ValidationPipe) queryTasks: QueryTasksDTO,
+  ): Promise<Task[]> {
     if (Object.keys(queryTasks).length) {
       console.log(queryTasks);
       return this.tasksService.findTasksWithQuery(queryTasks);
