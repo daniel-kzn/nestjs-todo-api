@@ -24,21 +24,23 @@ export class TaskController {
   @Get()
   async getTasks(
     @Query(ValidationPipe) queryTasks: QueryTasksDTO,
-  ): Promise<Task[]> {
-    if (Object.keys(queryTasks).length) {
+  ): Promise<Task[] | string> {
+    /*if (Object.keys(queryTasks).length) {
       console.log(queryTasks);
       return this.tasksService.findTasksWithQuery(queryTasks);
-    } else return this.tasksService.findAllTasks();
+    } else return this.tasksService.findAllTasks();*/
+    return 'TODO';
   }
 
   @Get('/:id')
-  async getTaskById(@Param('id') id: string): Promise<Task> {
-    return this.tasksService.findTaskById(id);
+  async getTaskById(@Param('id') id: string): Promise<Task | string> {
+    //return this.tasksService.findTaskById(id);
+    return 'TODO';
   }
 
   @Post()
   @UsePipes(ValidationPipe)
-  async createTask(@Body() dto: CreateTaskDTO): Promise<Task> {
+  async createTask(@Body() dto: CreateTaskDTO): Promise<Task | string> {
     return this.tasksService.createTask(dto);
   }
 
@@ -51,7 +53,7 @@ export class TaskController {
   }
 
   @Delete('/:id')
-  async deleteTask(@Param('id') id: string): Promise<undefined> {
-    this.tasksService.deleteTask(id);
+  async deleteTask(@Param('id') id: string) {
+    return 'TODO';
   }
 }

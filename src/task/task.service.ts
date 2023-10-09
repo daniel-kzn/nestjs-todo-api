@@ -3,19 +3,24 @@ import { Task, TaskStatus } from './model/task.model';
 
 import { v4 as uuidv4 } from 'uuid';
 import { CreateTaskDTO } from './dto/create-task.dto';
-import { UpdateTaskDTO } from './dto/update-task.dto';
 import { QueryTasksDTO } from './dto/query-tasks.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TaskEntity } from './entity/task.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TaskService {
-  private readonly tasks: Task[] = [];
+  constructor(
+    @InjectRepository(TaskEntity)
+    private tasksRepositoy: Repository<TaskEntity>,
+  ) {}
 
-  findAllTasks(): Task[] {
-    return this.tasks;
+  findAllTasks(): Promise<TaskEntity[]> {
+    return this.tasksRepositoy.find();
   }
 
-  findTasksWithQuery(queryTasks: QueryTasksDTO): Task[] {
-    const { search, status } = queryTasks;
+  findTasksWithQuery(queryTasks: QueryTasksDTO): string {
+    /* const { search, status } = queryTasks;
 
     let tasks = this.findAllTasks();
 
@@ -27,20 +32,22 @@ export class TaskService {
           task.title.includes(search) || task.description.includes(search),
       );
     }
-
-    return tasks;
+*/
+    return 'TODO';
   }
 
-  findTaskById(id: string): Task {
-    const task = this.tasks.find((task) => task.id === id);
+  findTaskById(id: string): string {
+    /* const task = this.tasks.find((task) => task.id === id);
 
     if (!task) {
       throw new NotFoundException(`Task with id "${id}" not found`);
-    } else return task;
+    } else return task;*/
+
+    return 'TODO';
   }
 
-  createTask(createTaskDTO: CreateTaskDTO): Task {
-    const { title, description } = createTaskDTO;
+  createTask(createTaskDTO: CreateTaskDTO): string {
+    /*const { title, description } = createTaskDTO;
     const createdTask: Task = {
       id: uuidv4(),
       title,
@@ -48,17 +55,14 @@ export class TaskService {
       status: TaskStatus.TODO,
     };
 
-    this.tasks.push(createdTask);
-    return createdTask;
+    this.tasks.push(createdTask);*/
+    return 'TODO';
   }
 
-  deleteTask(id: string): void {
-    const task = this.findTaskById(id);
+  deleteTask(id: string): string {
+    /*const task = this.findTaskById(id);
     this.tasks.filter((task) => task.id !== task.id);
-    return { message: `Item deleted with ID ${task.id}`, information: task };
+    return { message: `Item deleted with ID ${task.id}`, information: task };*/
+    return 'TODO';
   }
-
-  /*updateTask(id: string, dto: UpdateTaskDTO): Task {
-    const task = this.findTaskById(id);
-  }*/
 }
