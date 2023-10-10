@@ -1,3 +1,1 @@
 FROM postgres:16.0
-ENV POSTGRES_PASSWORD root
-ENV POSTGRES_DB todo-app
