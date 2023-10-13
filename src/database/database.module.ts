@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Task } from 'src/task/entity/task.entity';
+import { TaskEntity } from 'src/task/entity/task.entity';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { Task } from 'src/task/entity/task.entity';
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
         database: process.env.POSTGRES_DB,
-        entities: [Task],
+        entities: [TaskEntity],
         synchronize: true,
         autoLoadEntities: true,
       }),

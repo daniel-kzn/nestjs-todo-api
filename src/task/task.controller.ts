@@ -5,55 +5,45 @@ import {
   Get,
   Param,
   Post,
-  Query,
-  Put,
   ValidationPipe,
   UsePipes,
+  Patch,
 } from '@nestjs/common';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskService } from './task.service';
-import { Task } from './model/task.model';
 import { UpdateTaskDTO } from './dto/update-task.dto';
-import { QueryTasksDTO } from './dto/query-tasks.dto';
-import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
+import { TaskEntity } from './entity/task.entity';
 
 @Controller('task')
 export class TaskController {
   constructor(private tasksService: TaskService) {}
 
   @Get()
-  async getTasks(
-    @Query(ValidationPipe) queryTasks: QueryTasksDTO,
-  ): Promise<Task[] | string> {
-    /*if (Object.keys(queryTasks).length) {
-      console.log(queryTasks);
-      return this.tasksService.findTasksWithQuery(queryTasks);
-    } else return this.tasksService.findAllTasks();*/
-    return 'TODO';
+  async getTasks(): Promise<TaskEntity[]> {
+    return await this.tasksService.getAll();
   }
 
   @Get('/:id')
-  async getTaskById(@Param('id') id: string): Promise<Task | string> {
-    //return this.tasksService.findTaskById(id);
-    return 'TODO';
+  async getTaskById(@Param('id') id: string): Promise<TaskEntity> {
+    return await this.tasksService.getOneTask(id);
   }
 
   @Post()
   @UsePipes(ValidationPipe)
-  async createTask(@Body() dto: CreateTaskDTO): Promise<Task | string> {
-    return this.tasksService.createTask(dto);
+  async createTask(@Body() dto: CreateTaskDTO): Promise<TaskEntity> {
+    return await this.tasksService.createTask(dto);
   }
 
-  @Put('/:id')
+  @Patch('/:id')
   async uptadeTask(
     @Param('id') id: string,
-    @Body('data', TaskStatusValidationPipe) dto: UpdateTaskDTO,
-  ) {
-    return this.uptadeTask(id, dto);
+    @Body() dto: UpdateTaskDTO,
+  ): Promise<TaskEntity> {
+    return await this.tasksService.updateTask(id, dto);
   }
 
   @Delete('/:id')
   async deleteTask(@Param('id') id: string) {
-    return 'TODO';
+    return await this.tasksService.deleteTask(id);
   }
 }

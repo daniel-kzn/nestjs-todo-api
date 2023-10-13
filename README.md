@@ -1,38 +1,29 @@
 ## Description
 
-API RESTful de gestion de tâches
+Simple API CRUD RESTful de gestion de tâches
 
 ## Installation & Run
 
 ```bash
-$ npm install
-
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Run local
+$ docker compose up -d && npm run start:dev
 ```
 ## Stackdev
-Core:
+
+Ce projet à pour objectif de monter en compétence sur différent sujet, comme par exemple:
+
 - Backend: NodeJS (NestJS)
 - Database: PostgreSQL 16
 - ORM: TypeORM
 
-Tools:
-Practices:
+Pratique:
 - Twelve-Factor-App
 - SOLID
-- 
+
+
+## Todo
+- [ ] Implémenter des tests unitaires, intégration et E2E.
+- [ ] Utiliser les Pipes
+- [ ] Etoffer la table SQL Task
+- [ ] Ajout du JWT & User
+- [ ] Ajouter un rapport de covering

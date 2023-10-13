@@ -1,13 +1,11 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Task {
+@Entity({ name: 'tasks' })
+export class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column()
+  @Column({ type: 'varchar' })
   title: string;
-  @Column()
+  @Column({ type: 'varchar' })
   description: string;
-  @Column()
-  status: string;
 }
